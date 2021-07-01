@@ -1,13 +1,10 @@
 {
   "name": "typescript-serializable-mixin",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Mixin providing the powerful serialization abilities",
   "main": "index.js",
   "module": "index.js",
   "type": "module",
-  "homepage": "https://github.com/bryntum/siesta",
-  "bugs": "https://github.com/bryntum/siesta/issues",
-  "repository": "git@github.com:bryntum/siesta.git",
   "keywords": [
     "mixin",
     "typescript",
@@ -17,11 +14,11 @@
   "author": "Nickolay Platonov",
   "license": "MIT",
   "peerDependencies": {
-    "typescript-mixin-class": "/home/nickolay/workspace/typescript/typescript-mixin-class/"
+    "typescript-mixin-class": "^0.0.1"
   },
   "devDependencies": {
     "typescript": "^4.3.5",
     "@web/dev-server": "^0.1.17",
-    "@bryntum/siesta": "/home/nickolay/workspace/Bryntum/siesta-monorepo/siesta/DIST/"
+    "@bryntum/siesta": "^6.0.0-alpha-3"
   }
 }
