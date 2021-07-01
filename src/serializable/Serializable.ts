@@ -1,4 +1,4 @@
-import { AnyConstructor, Base, ClassUnion, Mixin } from "typescript-mixin-class"
+import { AnyConstructor, Base, ClassUnion, Mixin, MixinCustom } from "typescript-mixin-class"
 import { ArbitraryObject } from "../Helpers.js"
 import { Mapper, Mutator } from "./Visitor.js"
 
@@ -98,9 +98,7 @@ export class Expander extends Mixin(
 
             const expanded          = this.expander1.visit(value)
 
-            this.visit(expanded)
-
-            return expanded
+            return this.visit(expanded)
         }
     }
 ) {}
@@ -160,9 +158,7 @@ export class SerializationScope extends Base {
 
         const expander      = Expander.new({ layer : this.currentLayer })
 
-        const parsed        = expander.expand(decycled)
-
-        return parsed
+        return expander.expand(decycled)
     }
 }
 
@@ -184,7 +180,7 @@ export const parse = (text : string) : any => {
 
 
 //---------------------------------------------------------------------------------------------------------------------
-export class Serializable extends Mixin(
+export class Serializable extends MixinCustom(
     [],
     (base : AnyConstructor) =>
 

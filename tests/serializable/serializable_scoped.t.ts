@@ -97,3 +97,28 @@ it('Should be able to expand with layer', async t => {
 })
 
 
+it('Should be able to expand with layer #2', async t => {
+    //---------------------
+    const v1            = {}
+    const collapser1    = Collapser.new()
+    const collapsed1    = collapser1.collapse(v1)
+
+    //---------------------
+    const v2            = v1
+    const collapser2    = Collapser.new({ layer : collapser1.layer })
+    const collapsed2    = collapser2.collapse(v2)
+
+    //---------------------
+    const expander1     = Expander.new()
+    const expanded1     = expander1.expand(collapsed1)
+
+    t.isDeeply(expanded1, v1)
+
+    //---------------------
+    const expander2     = Expander.new({ layer : expander1.layer })
+    const expanded2     = expander2.expand(collapsed2)
+
+    t.isDeeply(expanded2, v2)
+})
+
+
