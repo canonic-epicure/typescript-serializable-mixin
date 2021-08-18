@@ -13,6 +13,9 @@
   ],
   "author": "Nickolay Platonov",
   "license": "MIT",
+  "dependencies": {
+    "typescript-mixin-class": "^0.0.1"
+  },
   "peerDependencies": {
     "typescript-mixin-class": "^0.0.1"
   },
