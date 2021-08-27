@@ -338,6 +338,19 @@ export const reviver = function (key : string | number, value : number | string 
 
 
 //---------------------------------------------------------------------------------------------------------------------
+registerNativeSerializableClass(Function, {
+    toJSON : (func : Function) => {
+        return {
+            $$class     : 'Function',
+            source      : '(' + func.toString() + ')'
+        }
+    },
+    fromJSON : data => {
+        return globalThis.eval(data.source)
+    }
+})
+
+
 registerNativeSerializableClass(Map, {
     toJSON : (map : Map<unknown, unknown>) => {
         return {

@@ -176,6 +176,19 @@ it('Serialization of native data structures should work - Date', async t => {
 })
 
 
+it('Serialization of native data structures should work - Function', async t => {
+    const func      = () => 1
+
+    const revived : Function   = parse(stringify(func))
+
+    t.isInstanceOf(revived, Function)
+
+    t.is(revived(), func())
+
+    // t.isDeeply(revived, func)
+})
+
+
 it('Serialization of crazy cyclic data structures should work - Map', async t => {
     const crazyMap  = new Map()
 

@@ -168,6 +168,11 @@ export class Visitor extends Mixin(
         visitDate (date : Date, depth : number) : any {
             return date
         }
+
+
+        visitFunction (func : Function, depth : number) : any {
+            return func
+        }
     }
 ){}
 
