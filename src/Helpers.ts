@@ -14,3 +14,6 @@ export const typeOf = (value : any) : string => Object.prototype.toString.call(v
 export type ArbitraryObjectKey  = string | number | symbol
 
 export type ArbitraryObject<T = unknown>     =  { [ key in ArbitraryObjectKey ] : T }
+
+//---------------------------------------------------------------------------------------------------------------------
+export const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor

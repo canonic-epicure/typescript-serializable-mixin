@@ -1,5 +1,5 @@
-import { AnyConstructor, Base, ClassUnion, Mixin, MixinCustom } from "typescript-mixin-class"
-import { ArbitraryObject } from "../Helpers.js"
+import { AnyConstructor, Base, ClassUnion, Mixin, MixinCustom } from "typescript-mixin-class/index.js"
+import { ArbitraryObject, AsyncFunction } from "../Helpers.js"
 import { Mapper, Mutator } from "./Visitor.js"
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -342,6 +342,19 @@ registerNativeSerializableClass(Function, {
     toJSON : (func : Function) => {
         return {
             $$class     : 'Function',
+            source      : '(' + func.toString() + ')'
+        }
+    },
+    fromJSON : data => {
+        return globalThis.eval(data.source)
+    }
+})
+
+
+registerNativeSerializableClass(AsyncFunction, {
+    toJSON : (func : Function) => {
+        return {
+            $$class     : 'AsyncFunction',
             source      : '(' + func.toString() + ')'
         }
     },

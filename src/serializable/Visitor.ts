@@ -173,6 +173,11 @@ export class Visitor extends Mixin(
         visitFunction (func : Function, depth : number) : any {
             return func
         }
+
+
+        visitAsyncFunction (func : Function, depth : number) : any {
+            return func
+        }
     }
 ){}
 

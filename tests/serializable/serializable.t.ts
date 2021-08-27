@@ -1,6 +1,7 @@
 import { it } from "@bryntum/siesta/index.js"
 import { Base } from "typescript-mixin-class"
 import { ClassUnion, Mixin } from "typescript-mixin-class"
+import { AsyncFunction } from "../../src/Helpers.js"
 import { Collapser, Expander, parse, serializable, Serializable, stringify } from "../../src/serializable/Serializable.js"
 
 it('Should be able to collapse cyclic structures', async t => {
@@ -184,6 +185,21 @@ it('Serialization of native data structures should work - Function', async t => 
     t.isInstanceOf(revived, Function)
 
     t.is(revived(), func())
+
+    // t.isDeeply(revived, func)
+})
+
+
+it('Serialization of native data structures should work - AsyncFunction', async t => {
+    const func      = async () => 1
+
+    const revived : Function   = parse(stringify(func))
+
+    t.isInstanceOf(revived, AsyncFunction)
+
+    t.isInstanceOf(revived(), Promise)
+
+    t.is(await revived(), await func())
 
     // t.isDeeply(revived, func)
 })
