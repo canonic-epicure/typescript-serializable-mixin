@@ -1,5 +1,5 @@
 import { AnyConstructor, Base, ClassUnion, Mixin, MixinCustom } from "typescript-mixin-class/index.js"
-import { ArbitraryObject, AsyncFunction } from "../Helpers.js"
+import { ArbitraryObject, AsyncFunction, typeOf } from "../Helpers.js"
 import { Mapper, Mutator } from "./Visitor.js"
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ export class Collapser extends Mixin(
 
 
         markPostVisited (value : unknown, depth : number, visitResult : unknown) : unknown {
-            const nativeSerializationEntry  = nativeSerializableClassesByConstructor.get(visitResult.constructor)
+            const nativeSerializationEntry  = nativeSerializableClassesByStringTag.get(typeOf(value))
 
             const res = nativeSerializationEntry ? nativeSerializationEntry.toJSON(visitResult as object) : visitResult
 
@@ -256,11 +256,11 @@ export const lookupSerializableClass = (id : string) : typeof Serializable => {
 //---------------------------------------------------------------------------------------------------------------------
 type NativeSerializationEntry<T extends object> = { toJSON : (native : object) => T, fromJSON : (json : T) => object }
 
-const nativeSerializableClassesByConstructor    = new Map<Function, NativeSerializationEntry<object>>()
+const nativeSerializableClassesByStringTag      = new Map<string, NativeSerializationEntry<object>>()
 const nativeSerializableClassesById             = new Map<string, NativeSerializationEntry<object>>()
 
 const registerNativeSerializableClass = <T extends object>(cls : Function, entry : NativeSerializationEntry<T>) => {
-    nativeSerializableClassesByConstructor.set(cls, entry)
+    nativeSerializableClassesByStringTag.set(cls.name, entry)
     nativeSerializableClassesById.set(cls.name, entry)
 }
 

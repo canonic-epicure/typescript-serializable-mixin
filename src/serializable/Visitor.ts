@@ -178,6 +178,35 @@ export class Visitor extends Mixin(
         visitAsyncFunction (func : Function, depth : number) : any {
             return func
         }
+
+
+        visitError (error : Error, depth : number) : any {
+            return error
+        }
+
+        visitTypeError (error : TypeError, depth : number) : any {
+            return error
+        }
+
+        visitRangeError (error : RangeError, depth : number) : any {
+            return error
+        }
+
+        visitEvalError (error : EvalError, depth : number) : any {
+            return error
+        }
+
+        visitReferenceError (error : ReferenceError, depth : number) : any {
+            return error
+        }
+
+        visitSyntaxError (error : SyntaxError, depth : number) : any {
+            return error
+        }
+
+        visitURIError (error : URIError, depth : number) : any {
+            return error
+        }
     }
 ){}
 

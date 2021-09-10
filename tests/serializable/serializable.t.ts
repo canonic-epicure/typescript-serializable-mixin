@@ -190,6 +190,18 @@ it('Serialization of native data structures should work - Function', async t => 
 })
 
 
+it('Serialization of native data structures should work - Error', async t => {
+    const error     = new Error("message")
+
+    const revived : Error   = parse(stringify(error))
+
+    t.isInstanceOf(revived, Error)
+
+    t.is(revived.message, error.message)
+    t.is(revived.stack, error.stack)
+})
+
+
 it('Serialization of native data structures should work - AsyncFunction', async t => {
     const func      = async () => 1
 
