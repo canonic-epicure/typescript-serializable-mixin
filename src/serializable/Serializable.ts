@@ -2,10 +2,10 @@ import { AnyConstructor, Base, ClassUnion, Mixin, MixinCustom } from "typescript
 import { ArbitraryObject, AsyncFunction, typeOf } from "../Helpers.js"
 import { Mapper, Mutator } from "./Visitor.js"
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export type JsonReferenceId = number
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export class Collapser extends Mixin(
     [ Mapper, Base ],
     (base : ClassUnion<typeof Mapper, typeof Base>) =>
@@ -45,7 +45,7 @@ export class Collapser extends Mixin(
 ) {}
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 class ExpanderPhase1 extends Mixin(
     [ Mapper, Base ],
     (base : ClassUnion<typeof Mapper, typeof Base>) =>
@@ -70,7 +70,7 @@ class ExpanderPhase1 extends Mixin(
 ) {}
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export class Expander extends Mixin(
     [ Mutator, Base ],
     (base : ClassUnion<typeof Mutator, typeof Base>) =>
@@ -104,7 +104,7 @@ export class Expander extends Mixin(
 ) {}
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export class SerializationLayer extends Base {
     refIdSource         : JsonReferenceId               = 0
 
@@ -137,7 +137,7 @@ export class SerializationLayer extends Base {
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // TODO this class seems to be unnecessary - all it does it providing the `SerializationLayer`
 // to the `parse/stringify` - can be removed and new argument for `parse/stringify` added (`layer`)
 export class SerializationScope extends Base {
@@ -164,7 +164,7 @@ export class SerializationScope extends Base {
 
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export const stringify = (value : any, space? : string | number) : string => {
     const decycled      = Collapser.new().collapse(value)
 
@@ -179,7 +179,7 @@ export const parse = (text : string) : any => {
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export class Serializable extends MixinCustom(
     [],
     (base : AnyConstructor) =>
@@ -230,7 +230,7 @@ export class Serializable extends MixinCustom(
 ) {}
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // TODO consider using 'moduleUrl/symbol' pair as class key
 // deserialization becomes async in this case
 const serializableClasses           = new Map<string, typeof Serializable>()
@@ -253,7 +253,7 @@ export const lookupSerializableClass = (id : string) : typeof Serializable => {
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 type NativeSerializationEntry<T extends object> = { toJSON : (native : object) => T, fromJSON : (json : T) => object }
 
 const nativeSerializableClassesByStringTag      = new Map<string, NativeSerializationEntry<object>>()
@@ -265,7 +265,7 @@ const registerNativeSerializableClass = <T extends object>(cls : Function, entry
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export type SerializationMode = 'optIn' | 'optOut'
 
 
@@ -285,7 +285,7 @@ export const serializable = (opts? : { id? : string, mode? : SerializationMode }
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export const exclude = () : PropertyDecorator => {
 
     return function (target : Serializable, propertyKey : string) : void {
@@ -309,7 +309,7 @@ export const include = () : PropertyDecorator => {
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export const reviver = function (key : string | number, value : number | string | boolean | ArbitraryObject) {
     if (typeof value === 'object' && value !== null) {
         const $class        = value.$class as string
@@ -337,7 +337,7 @@ export const reviver = function (key : string | number, value : number | string 
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 registerNativeSerializableClass(Function, {
     toJSON : (func : Function) => {
         return {
