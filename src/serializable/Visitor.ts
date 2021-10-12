@@ -1,5 +1,5 @@
 import { AnyConstructor, ClassUnion, Mixin } from "typescript-mixin-class"
-import { ArbitraryObjectKey, isAtomicValue, typeOf, uppercaseFirst } from "../Helpers.js"
+import { isAtomicValue, typeOf, uppercaseFirst } from "../Helpers.js"
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export const visitorVisitSymbol = Symbol('internalVisitSymbol')
@@ -107,15 +107,15 @@ export class Visitor extends Mixin(
         }
 
         visitObjectEntryKey (
-            key     : ArbitraryObjectKey, value : unknown, object : object, index : number,
-            entries : [ ArbitraryObjectKey, unknown ][], depth : number
+            key     : PropertyKey, value : unknown, object : object, index : number,
+            entries : [ PropertyKey, unknown ][], depth : number
         ) : any {
             return this.visitAtomicValueEntry(key, depth)
         }
 
         visitObjectEntryValue (
-            key     : ArbitraryObjectKey, value : unknown, object : object, index : number,
-            entries : [ ArbitraryObjectKey, unknown ][], depth : number
+            key     : PropertyKey, value : unknown, object : object, index : number,
+            entries : [ PropertyKey, unknown ][], depth : number
         ) {
             return this.visit(value, depth)
         }
