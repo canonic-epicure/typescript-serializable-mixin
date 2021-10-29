@@ -180,7 +180,7 @@ export const parse = (text : string) : any => {
 
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-export class Serializable extends MixinCustom(
+export class Serializable extends Mixin(
     [],
     (base : AnyConstructor) =>
 
@@ -228,6 +228,17 @@ export class Serializable extends MixinCustom(
         }
     }
 ) {}
+
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+export class SerializableCustom extends MixinCustom(
+    [ Serializable ],
+    (base : ClassUnion<typeof Serializable>) =>
+
+    class SerializableCustom extends base {
+    }
+){}
+
 
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
