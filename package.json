@@ -14,10 +14,10 @@
   "author": "Nickolay Platonov",
   "license": "MIT",
   "dependencies": {
-    "typescript-mixin-class": "^0.0.2"
+    "typescript-mixin-class": "^0.0.3"
   },
   "peerDependencies": {
-    "typescript-mixin-class": "^0.0.2"
+    "typescript-mixin-class": "^0.0.3"
   },
   "devDependencies": {
     "typescript": "^4.3.5",
