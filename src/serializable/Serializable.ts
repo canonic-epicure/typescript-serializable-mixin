@@ -6,6 +6,7 @@ import { Mapper, Mutator } from "./Visitor.js"
 export type JsonReferenceId = number
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TODO internal class, exported only for test, looks like test is verifying the implementation details?
 export class Collapser extends Mixin(
     [ Mapper, Base ],
     (base : ClassUnion<typeof Mapper, typeof Base>) =>
@@ -185,11 +186,13 @@ export class Serializable extends Mixin(
     (base : AnyConstructor) =>
 
     class Serializable extends base {
+        // in-prototype properties
         $class                  : string
         $mode                   : SerializationMode
 
         $includedProperties     : object
         $excludedProperties     : object
+        // eof in-prototype properties
 
 
         toJSON (key : string) : any {
