@@ -77,7 +77,15 @@ export class Expander extends Mixin(
     (base : ClassUnion<typeof Mutator, typeof Base>) =>
 
     class Expander extends base {
-        expander1               : ExpanderPhase1        = ExpanderPhase1.new()
+        $expander1 : ExpanderPhase1     = undefined
+
+        get expander1 () : ExpanderPhase1 {
+            if (this.$expander1 !== undefined) return this.$expander1
+
+            return this.$expander1 = ExpanderPhase1.new({ internalVisitSymbol : this.mappingVisitSymbol })
+        }
+
+        mappingVisitSymbol      : symbol                = undefined
 
         layer                   : SerializationLayer    = SerializationLayer.new()
 
@@ -166,17 +174,17 @@ export class SerializationScope extends Base {
 
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-export const stringify = (value : any, space? : string | number) : string => {
-    const decycled      = Collapser.new().collapse(value)
+export const stringify = (value : any, options? : { collapserVisitSymbol? : symbol, space? : string | number }) : string => {
+    const decycled      = Collapser.new({ internalVisitSymbol : options?.collapserVisitSymbol }).collapse(value)
 
-    return JSON.stringify(decycled, null, space)
+    return JSON.stringify(decycled, null, options?.space)
 }
 
 
-export const parse = (text : string) : any => {
+export const parse = (text : string, options? : { mappingVisitSymbol? : symbol }) : any => {
     const decycled      = JSON.parse(text, reviver)
 
-    return Expander.new().expand(decycled)
+    return Expander.new(options).expand(decycled)
 }
 
 
